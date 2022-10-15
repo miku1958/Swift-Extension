@@ -9,7 +9,8 @@ let buildSetting: [SwiftSetting] = [
 let package = Package(
 	name: "Swift-Extension",
 	platforms: [
-		.macOS(.v12)
+		.macOS(.v12),
+		.iOS(.v15)
 	],
 	products: [
 		.library(name: "Extension", targets: ["Extension", "ObjcExtension"])

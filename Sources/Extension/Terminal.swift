@@ -7,6 +7,7 @@
 
 import Foundation
 
+#if os(macOS)
 public enum Terminal {
 	public struct Environment {
 		var launchPath: String
@@ -324,3 +325,4 @@ extension Array where Element == Terminal.Option {
 		return characterSet
 	}
 }
+#endif
