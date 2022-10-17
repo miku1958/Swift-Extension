@@ -1,11 +1,10 @@
 //
-//  View.swift
+//  View+Extension.swift
+//  
 //
-//
-//  Created by 庄黛淳华 on 2022/7/23.
+//  Created by 庄黛淳华 on 2022/10/16.
 //
 
-import Foundation
 import SwiftUI
 
 extension View {
