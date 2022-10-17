@@ -31,4 +31,42 @@ extension View {
 			view
 		}
 	}
+
+	public func whenAnimationCompletion(_ completionClosure: @escaping () -> Void) {
+		DispatchQueue.main.async {
+			CATransaction.begin()
+			CATransaction.setCompletionBlock(completionClosure)
+			CATransaction.commit()
+		}
+	}
+
+	@inlinable
+	@ViewBuilder
+	public func scrollable(_ axes: Axis.Set = .vertical, showsIndicators: Bool = true, scrollReader: ((ScrollViewProxy) -> Void)? = nil) -> some View {
+		if let scrollReader {
+			ScrollViewReader {
+				if scrollReader($0) != () {
+
+				} else {
+					ScrollView(axes, showsIndicators: showsIndicators) { self }
+				}
+			}
+		} else {
+			ScrollView(axes, showsIndicators: showsIndicators) { self }
+		}
+	}
+
+	@inlinable
+	@ViewBuilder
+	public func navigable() -> some View {
+		if #available(iOS 16.0, macOS 13.0, *) {
+			NavigationStack  {
+				self
+			}
+		} else {
+			NavigationView {
+				self
+			}
+		}
+	}
 }
