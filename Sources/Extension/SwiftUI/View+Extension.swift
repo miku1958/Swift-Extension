@@ -19,4 +19,16 @@ extension View {
 			}
 		}
 	}
+
+	@inline(never)
+	@ViewBuilder
+	public func `if`(@ViewBuilder testCase: (Self) -> some View) -> some View {
+		let view = testCase(self)
+
+		if (view as? _Optional)?.isNil == true {
+			self
+		} else {
+			view
+		}
+	}
 }

@@ -7,6 +7,16 @@
 
 import Foundation
 
+protocol _Optional {
+	var isNil: Bool { get }
+}
+
+extension Optional: _Optional {
+	var isNil: Bool {
+		self == nil
+	}
+}
+
 infix operator ???: NilCoalescingPrecedence
 
 public func ??? <T>(optional: T?, defaultValue: @autoclosure () async throws -> T) async rethrows -> T {
