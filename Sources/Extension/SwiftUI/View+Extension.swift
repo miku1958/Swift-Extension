@@ -42,17 +42,19 @@ extension View {
 
 	@inlinable
 	@ViewBuilder
-	public func scrollable(_ axes: Axis.Set = .vertical, showsIndicators: Bool = true, scrollReader: ((ScrollViewProxy) -> Void)? = nil) -> some View {
-		if let scrollReader {
-			ScrollViewReader {
-				if scrollReader($0) != () {
+	public func scrollable(_ axes: Axis.Set = .vertical, showsIndicators: Bool = true) -> some View {
+		ScrollView(axes, showsIndicators: showsIndicators) {
+			self
+		}
+	}
 
-				} else {
-					ScrollView(axes, showsIndicators: showsIndicators) { self }
-				}
+	@inlinable
+	@ViewBuilder
+	public func scrollToOnAppear(_ onAppear: @escaping (ScrollViewProxy) -> Void) -> some View {
+		ScrollViewReader { proxy in
+			self.onAppear {
+				onAppear(proxy)
 			}
-		} else {
-			ScrollView(axes, showsIndicators: showsIndicators) { self }
 		}
 	}
 
