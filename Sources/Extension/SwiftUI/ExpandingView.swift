@@ -47,27 +47,37 @@ extension VerticalAlignment {
 }
 
 public struct ExpandingView<Content>: View where Content: View {
-	let aligment: Alignment
+	let horizontal: HorizontalAlignment?
+	let vertical: VerticalAlignment?
 	let content: () -> Content
+
 	public init(aligment: Alignment = Alignment(horizontal: .center, vertical: .center), @ViewBuilder content: @escaping () -> Content) {
-		self.aligment = aligment
+		self.horizontal = aligment.horizontal
+		self.vertical = aligment.vertical
 		self.content = content
 	}
+
+	public init(horizontal: HorizontalAlignment?, vertical: VerticalAlignment?, @ViewBuilder content: @escaping () -> Content) {
+		self.horizontal = horizontal
+		self.vertical = vertical
+		self.content = content
+	}
+
 	public var body: some View {
-		HStack(alignment: aligment.vertical) {
-			if aligment.horizontal.needLeadingSpace {
+		HStack(alignment: vertical ?? .center, spacing: 0) {
+			if let horizontal, horizontal.needLeadingSpace {
 				Spacer()
 			}
-			VStack(alignment: aligment.horizontal) {
-				if aligment.vertical.needTopSpace {
+			VStack(alignment: horizontal ?? .center, spacing: 0) {
+				if let vertical, vertical.needTopSpace {
 					Spacer()
 				}
 				content()
-				if aligment.vertical.needBottomSpace {
+				if let vertical, vertical.needBottomSpace {
 					Spacer()
 				}
 			}
-			if aligment.horizontal.needTrailingSpace {
+			if let horizontal, horizontal.needTrailingSpace {
 				Spacer()
 			}
 		}
