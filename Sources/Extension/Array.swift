@@ -9,6 +9,16 @@ import Foundation
 
 extension Array {
 	@inlinable
+	public init(repeatingAction repeatedAction: () -> Element, count: Int) {
+		self.init()
+		var mCount = count
+		while mCount > 0 {
+			self.append(repeatedAction())
+			mCount -= 1
+		}
+	}
+
+	@inlinable
 	public func concurrentMap<T: Sendable>(_ transform: @escaping (Element) async throws -> T, concurrent: Bool = false) async rethrows -> [T] {
 		try await withThrowingTaskGroup(of: T.self, body: { group in
 			for item in self {
@@ -63,5 +73,14 @@ extension Array {
 			}
 		}
 		return result
+	}
+
+	@inlinable
+	public subscript(safe index: Int) -> Element? {
+		if index < count {
+			return self[index]
+		} else {
+			return nil
+		}
 	}
 }
