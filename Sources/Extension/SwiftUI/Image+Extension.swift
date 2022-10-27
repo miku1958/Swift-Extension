@@ -5,9 +5,9 @@
 //  Created by 庄黛淳华 on 2022/10/15.
 //
 
-import SwiftUI
 import Foundation
 import SFSafeSymbols
+import SwiftUI
 
 extension Image {
 	public static let placeholder = Image(systemSymbol: .photo)
@@ -15,12 +15,12 @@ extension Image {
 	public init(resourceName: String, in bundle: Bundle = .main) {
 		guard let path = bundle.path(forResource: resourceName, ofType: nil) else {
 #if DEBUG
-			fatalError("file \(resourceName) is missing") 
+			fatalError("file \(resourceName) is missing")
 #endif
 			self = .placeholder
 			return
 		}
-		self = Self.init(contentsOfFile: path)
+		self = Self(contentsOfFile: path)
 	}
 
 	public init(contentsOfFile path: String) {

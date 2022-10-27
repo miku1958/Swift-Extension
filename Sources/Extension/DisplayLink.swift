@@ -9,7 +9,6 @@ import Foundation
 import QuartzCore
 
 public class Displaylink {
-
 #if DEBUG
 	let timer: DispatchSourceTimer? = {
 		if SwiftUIConstants.isPreview {
@@ -21,7 +20,6 @@ public class Displaylink {
 #else
 	let timer: DispatchSourceTimer? = DispatchSource.makeTimerSource()
 #endif
-
 
 	public init(timeInterval: DispatchTimeInterval) {
 		timer?.schedule(deadline: .now(), repeating: timeInterval, leeway: .microseconds(500))

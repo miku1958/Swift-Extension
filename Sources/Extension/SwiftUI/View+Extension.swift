@@ -62,7 +62,7 @@ extension View {
 	@ViewBuilder
 	public func navigable() -> some View {
 		if #available(iOS 16.0, macOS 13.0, *) {
-			NavigationStack  {
+			NavigationStack {
 				self
 			}
 		} else {
