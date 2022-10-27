@@ -71,4 +71,13 @@ extension View {
 			}
 		}
 	}
+
+	@inlinable
+	@ViewBuilder
+	public func navigateTo(@ViewBuilder destination: () -> some View) -> some View {
+		NavigationLink(destination: destination) {
+			self
+		}
+		.buttonStyle(.plain)
+	}
 }
